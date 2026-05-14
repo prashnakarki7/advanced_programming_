@@ -1,0 +1,115 @@
+:root {
+    --bg-page: #f8f9fa;      /* Clean off-white */
+    --pink-btn: #f472b6;     /* Your Pink */
+    --pink-hover: #db2777;   /* Your Darker Pink */
+    --white: #ffffff;
+    --border: #e5e7eb;
+}
+
+/* --- Layout --- */
+.listing-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sidebar + Content */
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* --- Sidebar Filters --- */
+.sidebar-filter {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.filter-group {
+    margin-bottom: 30px;
+}
+
+.filter-group h4 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--pink-btn);
+    display: inline-block;
+}
+
+.filter-list { list-style: none; padding: 0; margin: 0; }
+.filter-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+
+.filter-list input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: var(--pink-btn);
+}
+
+/* --- Product Area --- */
+.listing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.sort-select {
+    padding: 8px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    outline: none;
+}
+
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 30px;
+}
+
+/* --- Book Card (Same as Home for consistency) --- */
+.book-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.book-card:hover { transform: translateY(-8px); }
+
+.cover-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1.4;
+    background-color: #f9a8d4; /* Your Pink Cover */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.add-btn {
+    width: 100%;
+    background-color: var(--pink-btn);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.add-btn:hover { background-color: var(--pink-hover); }
