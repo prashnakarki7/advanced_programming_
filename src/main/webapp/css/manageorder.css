@@ -1,0 +1,160 @@
+order
+/* Color Palette */
+:root {
+    --pink-main: #f472b6;
+    --pink-hover: #db2777;
+    --pink-light: #fdf2f8;
+    --text-gray: #4b5563;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    color: var(--text-gray);
+}
+.layout {
+    flex: 1; /* fills space between header and footer */
+    display: flex;
+}
+
+.sidebar {
+    width: 240px;
+    background: #f472b6;
+    color: #fff;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.sidebar-header span {
+    color: #ec4899;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    color: #f9f9f9;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+.nav-item i {
+    margin-right: 10px;
+}
+.nav-item:hover,
+.nav-item.active {
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn {
+    margin-top: auto;
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn:hover {
+    background: #db2777;
+}
+
+.main-content {
+    padding: 50px 0;
+    min-height: 75vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Section */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pink-hover); /* Using darker pink for title */
+}
+
+/* The Table Card */
+.card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(244, 114, 182, 0.15);
+    overflow: hidden;
+    border: 1px solid var(--pink-light);
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table thead tr {
+    background-color: var(--pink-main); /* Exact #f472b6 */
+    color: white;
+    text-align: left;
+}
+
+.order-table th, .order-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--pink-light);
+}
+
+.order-table tbody tr:hover {
+    background-color: var(--pink-light);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--pink-main); /* Exact #f472b6 */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--pink-hover); /* Exact #db2777 */
+    transform: translateY(-1px);
+}
+
+/* UI Elements */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.pending { background: #fee2e2; color: #ef4444; }
+.delivered { background: #dcfce7; color: #16a34a; }
+
+.amount {
+    font-weight: 700;
+    color: #111827;
+}
+
+select {
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline-color: var(--pink-main);
+}
