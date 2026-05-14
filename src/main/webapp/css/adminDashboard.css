@@ -1,0 +1,149 @@
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column; /* stack header, content, footer */
+    min-height: 100vh;
+}
+
+.layout {
+    flex: 1; /* fills space between header and footer */
+    display: flex;
+}
+
+.sidebar {
+    width: 240px;
+    background: #f472b6;
+    color: #fff;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.sidebar-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.sidebar-header span {
+    color: #ec4899;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    color: #f9f9f9;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+.nav-item i {
+    margin-right: 10px;
+}
+.nav-item:hover,
+.nav-item.active {
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn {
+    margin-top: auto;
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn:hover {
+    background: #db2777;
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+
+
+.breadcrumb {
+    font-size: 0.9rem;
+    color: #ec4899;
+}
+
+.user-profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #f472b6;
+    font-weight: 700;
+    border: 1px solid #e0e7ff;
+    text-transform: uppercase;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.welcome-banner {
+    background: #f472b6;
+    color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+.welcome-banner h1 {
+    margin: 0 0 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-group {
+    margin-bottom: 12px;
+}
+.info-label {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+.info-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.badge {
+    background: #4f46e5;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
