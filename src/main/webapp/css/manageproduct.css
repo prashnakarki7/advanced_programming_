@@ -1,0 +1,233 @@
+/* MANAGE PRODUCT STYLES - NEPAL READS ADMIN */
+
+/* --- Page Structure --- */
+.page-bg {
+    background-color: #f9f9f9;
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.layout {
+    flex: 1; /* fills space between header and footer */
+    display: flex;
+}
+
+.sidebar {
+    width: 240px;
+    background: #f472b6;
+    color: #fff;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+} 
+
+.sidebar-header {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+.sidebar-header span {
+    color: #ec4899;
+}
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    color: #f9f9f9;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+}
+.nav-item i {
+    margin-right: 10px;
+}
+.nav-item:hover,
+.nav-item.active {
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn {
+    margin-top: auto;
+    background: #ec4899;
+    color: #fff;
+}
+.logout-btn:hover {
+    background: #db2777;
+}
+
+/* Container for the table area */
+.listing-container {
+    flex: 1;
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+/* --- Header & Controls --- */
+.admin-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.admin-controls h2 {
+    color: #111827;
+    font-weight: 700;
+    margin: 0;
+}
+
+.admin-controls p {
+    color: #64748b;
+    margin: 5px 0 0;
+}
+
+.btn-add-new {
+    background: #f472b6; /* Matches sidebar color */
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-add-new:hover {
+    background: #ec4899;
+}
+
+/* --- Table Styles --- */
+.inventory-area {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th {
+    background: #fff;
+    padding: 16px;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.inventory-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+/* Book Title/Author Grouping */
+.book-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.book-icon {
+    width: 40px;
+    height: 40px;
+    background: #fdf2f8; /* Light pink background */
+    color: #f472b6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.book-title {
+    font-weight: 600;
+    color: #111827;
+}
+
+.book-author {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* --- Badges & Actions --- */
+.stock-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.in-stock {
+    background: #ecfdf5;
+    color: #10b981;
+}
+
+.low-stock {
+    background: #fffbeb;
+    color: #f59e0b;
+}
+
+.action-btns {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-edit, .btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    transition: 0.2s;
+}
+
+.btn-edit { color: #6366f1; }
+.btn-delete { color: #f43f5e; }
+
+.btn-edit:hover { color: #4f46e5; transform: scale(1.1); }
+.btn-delete:hover { color: #e11d48; transform: scale(1.1); }
+
+/* --- Pagination --- */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-page {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-page:hover {
+    border-color: #f472b6;
+    color: #f472b6;
+}
+
+.btn-page.active {
+    background: #f472b6;
+    color: white;
+    border-color: #f472b6;
+}
