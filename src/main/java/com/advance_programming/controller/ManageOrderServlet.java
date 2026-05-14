@@ -1,0 +1,69 @@
+package com.advance_programming.controller;
+
+import com.advance_programming.DAO.AdminDAO;
+import com.advance_programming.model.OrderModel;
+import com.advance_programming.utils.SessionUtil;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * ManageOrderServlet - Admin page to view and update order status.
+ *
+ * GET  /admin/manageorder                  → list all orders
+ * POST /admin/manageorder?action=updateStatus → change status of an order
+ */
+@WebServlet("/admin/manageorder")
+public class ManageOrderServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        if (!SessionUtil.isAdminLoggedIn(request)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        AdminDAO         dao    = new AdminDAO();
+        List<OrderModel> orders = dao.getAllOrders();
+
+        request.setAttribute("orders", orders);
+        request.getRequestDispatcher("/WEB-INF/pages/manageorder.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        if (!SessionUtil.isAdminLoggedIn(request)) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String action  = request.getParameter("action");
+        int    orderId;
+        String status  = request.getParameter("status");
+
+        try {
+            orderId = Integer.parseInt(request.getParameter("orderId"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect(request.getContextPath() + "/admin/manageorder");
+            return;
+        }
+
+        if ("updateStatus".equals(action) && status != null) {
+            AdminDAO dao = new AdminDAO();
+            dao.updateOrderStatus(orderId, status);
+        }
+
+        response.sendRedirect(request.getContextPath() + "/admin/manageorder");
+    }
+}

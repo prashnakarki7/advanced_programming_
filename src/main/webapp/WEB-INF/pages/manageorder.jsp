@@ -95,7 +95,7 @@
                                 <form action="UpdateOrderStatusServlet" method="post" class="update-form">
                                     <input type="hidden" name="orderId" value="102">
                                     <select name="status">
-                                        <option value="pending">Pending</option>
+                                        <option value="pending">Pendingg</option>
                                         <option value="delivered" selected>Delivered</option>
                                     </select>
                                     <button type="submit" class="btn-primary">Update</button>
