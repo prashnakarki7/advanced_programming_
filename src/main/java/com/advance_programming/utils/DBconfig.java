@@ -2,26 +2,34 @@ package com.advance_programming.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBconfig {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/nepalreads";;
+    // Removed the double semicolon here
+    private static final String URL = "jdbc:mysql://localhost:3306/nepalreads"; 
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
     public static Connection getConnection() {
-
         Connection conn = null;
-
         try {
+            // Force the driver to load
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            
+            if (conn != null) {
+                System.out.println("SUCCESS: Connected to NepalReads DB");
+            }
 
-            System.out.println("Connected to DB");
-
+        } catch (ClassNotFoundException e) {
+            System.out.println("ERROR: MySQL Driver not found! Check your WEB-INF/lib folder.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("ERROR: Failed to connect to MySQL. Is XAMPP/MySQL running?");
+            e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("DB Connection Failed");
+            System.out.println("DB Connection Failed due to an unknown error.");
             e.printStackTrace();
         }
 
