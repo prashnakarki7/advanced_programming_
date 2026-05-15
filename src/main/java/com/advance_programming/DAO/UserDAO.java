@@ -8,11 +8,15 @@ import com.advance_programming.utils.DBconfig;
 
 public class UserDAO {
 
-    // 1. Registration
+    /**
+     * 1. Registration: Adds a new user.
+     * Updated to catch Exception (handling ClassNotFoundException).
+     */
     public boolean insertUser(String firstName, String lastName, String username, String dob,
-                              String gender, String email, String number, String password) throws Exception {
+                              String gender, String email, String number, String password) {
         String sql = "INSERT INTO users (first_name, last_name, username, dob, gender, email, number, password, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'user', 'Active')";
-        try (Connection con = DBconfig.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, firstName);
             pst.setString(2, lastName);
             pst.setString(3, username);
@@ -22,14 +26,21 @@ public class UserDAO {
             pst.setString(7, number);
             pst.setString(8, password);
             return pst.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
-    // 2. Login / Fetch User (Fixes your current error)
-    public UserModel getUserByUsername(String username) throws Exception {
+    /**
+     * 2. Login / Fetch User: Fetches user details by username.
+     * Fixed to handle the unhandled ClassNotFoundException.
+     */
+    public UserModel getUserByUsername(String username) {
         UserModel user = null;
         String sql = "SELECT * FROM users WHERE username = ?";
-        try (Connection con = DBconfig.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, username);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
@@ -46,14 +57,19 @@ public class UserDAO {
                     user.setStatus(rs.getString("status"));
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return user;
     }
 
-    // 3. Profile Update (used by ProfileServlet)
-    public int updateUser(int userId, String firstName, String lastName, String dob, String email, String number) throws Exception {
+    /**
+     * 3. Profile Update: Used by ProfileServlet.
+     */
+    public int updateUser(int userId, String firstName, String lastName, String dob, String email, String number) {
         String sql = "UPDATE users SET first_name=?, last_name=?, dob=?, email=?, number=? WHERE user_id=?";
-        try (Connection con = DBconfig.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, firstName);
             pst.setString(2, lastName);
             pst.setDate(3, java.sql.Date.valueOf(dob));
@@ -61,14 +77,21 @@ public class UserDAO {
             pst.setString(5, number);
             pst.setInt(6, userId);
             return pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
-    // 4. Admin: Get All Users
-    public List<UserModel> getAllUsers() throws Exception {
+    /**
+     * 4. Admin: Get All Users.
+     */
+    public List<UserModel> getAllUsers() {
         List<UserModel> list = new ArrayList<>();
         String sql = "SELECT * FROM users";
-        try (Connection con = DBconfig.getConnection(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             Statement st = con.createStatement(); 
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 UserModel u = new UserModel();
                 u.setUserId(rs.getInt("user_id"));
@@ -78,26 +101,40 @@ public class UserDAO {
                 u.setStatus(rs.getString("status"));
                 list.add(u);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    // 5. Admin: Update Status
-    public boolean updateStatus(int userId, String status) throws Exception {
+    /**
+     * 5. Admin: Update Status.
+     */
+    public boolean updateStatus(int userId, String status) {
         String sql = "UPDATE users SET status = ? WHERE user_id = ?";
-        try (Connection con = DBconfig.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setString(1, status);
             pst.setInt(2, userId);
             return pst.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
-    // 6. Admin: Delete User
-    public boolean deleteUser(int userId) throws Exception {
+    /**
+     * 6. Admin: Delete User.
+     */
+    public boolean deleteUser(int userId) {
         String sql = "DELETE FROM users WHERE user_id = ?";
-        try (Connection con = DBconfig.getConnection(); PreparedStatement pst = con.prepareStatement(sql)) {
+        try (Connection con = DBconfig.getConnection(); 
+             PreparedStatement pst = con.prepareStatement(sql)) {
             pst.setInt(1, userId);
             return pst.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
