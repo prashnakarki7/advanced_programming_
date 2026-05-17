@@ -2,29 +2,17 @@ package com.advance_programming.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DBconfig {
-
-    private static final String URL = "jdbc:mysql://localhost:3306/nepalreads";;
+    private static final String URL = "jdbc:mysql://localhost:3306/nepalreads";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = ""; 
 
-    public static Connection getConnection() {
-
-        Connection conn = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-
-            System.out.println("Connected to DB");
-
-        } catch (Exception e) {
-            System.out.println("DB Connection Failed");
-            e.printStackTrace();
-        }
-
-        return conn;
+    // This method now signals it can throw two types of errors
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+        // Matches the mysql-connector-j version 9.6.0 in your pom.xml
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

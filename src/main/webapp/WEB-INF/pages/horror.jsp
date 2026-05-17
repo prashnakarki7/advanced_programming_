@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,43 +11,56 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/horror.css">
 </head>
 <body>
-    <jsp:include page="header.jsp" /> 
+    <jsp:include page="header.jsp" />
 
     <main class="horror-container">
-        <h2 class="horror-title">Horror Collection</h2>
-        
-        <div class="genre-page-grid">
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror1.jpg" alt="Horror 1"></div>
-                <div class="card-info"><h3>The IT</h3><span class="price">Rs. 1100</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror2.jpg" alt="Horror 2"></div>
-                <div class="card-info"><h3>The Shining</h3><span class="price">Rs. 950</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror3.jpg" alt="Horror 3"></div>
-                <div class="card-info"><h3>Dracula</h3><span class="price">Rs. 800</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror4.jpg" alt="Horror 4"></div>
-                <div class="card-info"><h3>The Exorcist</h3><span class="price">Rs. 1050</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror5.jpg" alt="Horror 5"></div>
-                <div class="card-info"><h3>Bird Box</h3><span class="price">Rs. 920</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-            <div class="book-card">
-                <div class="book-img-container"><img src="${pageContext.request.contextPath}/images/books/horror6.jpg" alt="Horror 6"></div>
-                <div class="card-info"><h3>Mexican Gothic</h3><span class="price">Rs. 1200</span>
-                <form action="cart" method="post"><button type="submit" class="add-btn-submit">Add to Cart</button></form></div>
-            </div>
-        </div>
+        <h2 class="horror-title"><i class="fas fa-ghost"></i> Horror Collection</h2>
+
+        <c:choose>
+            <c:when test="${empty books}">
+                <div style="text-align:center;padding:80px 20px;color:#6b7280">
+                    <i class="fas fa-book-open" style="font-size:3rem;display:block;margin-bottom:16px"></i>
+                    <p>No Horror books available yet. Check back soon!</p>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="genre-page-grid">
+                    <c:forEach var="b" items="${books}">
+                    <div class="book-card">
+                        <div class="book-img-container">
+                            <c:choose>
+                                <c:when test="${not empty b.coverImage}">
+                                    <img src="${pageContext.request.contextPath}/${b.coverImage}" alt="${b.title}"
+                                         onerror="this.src='https://via.placeholder.com/200x300/1a1a1a/ff4444?text=${b.title}'">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="https://via.placeholder.com/200x300/1a1a1a/ff4444?text=${b.title}" alt="${b.title}">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="card-info">
+                            <p class="author">${b.author}</p>
+                            <h3>${b.title}</h3>
+                            <span class="price">Rs. ${b.price}</span>
+                            <form action="${pageContext.request.contextPath}/cart" method="post" class="add-cart-form">
+                                <input type="hidden" name="bookId" value="${b.bookId}">
+                                <input type="hidden" name="action" value="add">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.user}">
+                                        <button type="submit" class="add-btn-submit">Add to Cart</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="button" class="add-btn-submit"
+                                            onclick="window.location='${pageContext.request.contextPath}/login'">Add to Cart</button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </form>
+                        </div>
+                    </div>
+                    </c:forEach>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </main>
 
     <jsp:include page="footer.jsp" />
