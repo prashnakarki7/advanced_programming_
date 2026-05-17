@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  /* Added the light off-white background */
+  background: #f8f9fa; 
+}
+
+ul {
+  display: flex;
+  list-style: none;
+}
+
+ul li {
+  margin-left: 25px;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.wrapper {
+  width: 80%;
+  margin: 50px auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333; /* Darker text for better contrast on light background */
+}
+
+.checkout-box {
+  display: flex;
+  gap: 35px;
+  justify-content: center;
+}
+
+.left-box {
+  width: 420px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05); /* Softer shadow for light bg */
+}
+
+.right-box {
+  width: 380px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.05);
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  border: 1px solid #eee; /* Lighter border to match the clean look */
+  border-radius: 6px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  /* Button Pink Background */
+  background: #f472b6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  /* Button Pink Hover */
+  background: #db2777;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 0;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 22px;
+  color: #be185d; /* Pinkish-red for the total to match the palette */
+}
+
+/* Style for input and select boxes when they are clicked/active */
+input:focus, 
+select:focus {
+    outline: none; 
+    border: 1px solid #f472b6; 
+    box-shadow: 0 0 8px rgba(244, 114, 182, 0.3); 
+    transition: all 0.3s ease;
+}

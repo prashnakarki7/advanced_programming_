@@ -1,0 +1,104 @@
+/* HORROR PAGE UNIQUE STYLES - Matched to Romance Boxes/Buttons */
+
+:root {
+    --bg-light: #fdfafb; 
+}
+
+html, body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #1f2937; /* Darker text for better contrast on light bg */
+}
+
+.horror-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.horror-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #f472b6; /* Keeping Title Red to identify the genre */
+    border-left: 8px solid #f472b6; /* Pink border to match Romance theme */
+    padding-left: 20px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+/* THE 3-COLUMN GRID */
+.genre-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    margin-bottom: 80px;
+}
+
+/* UPDATED BOX COLOR: Matches Romance (White with Pink Border) */
+.book-card {
+    background: #ffffff; 
+    border-radius: 15px;
+    border: 1px solid #fce7f3; 
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(244, 114, 182, 0.2);
+    border-color: #f472b6;
+}
+
+.book-img-container {
+    height: 320px;
+    background: #fff1f2; /* Light Pink image container like Romance */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.book-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.card-info {
+    padding: 20px;
+}
+
+.card-info h3 {
+    color: #1f2937; /* Dark text like Romance */
+    margin-bottom: 10px;
+}
+
+.price {
+    display: block;
+    font-weight: 700;
+    color: #db2777; /* Pink price tag */
+    margin-bottom: 15px;
+}
+
+/* UPDATED BUTTON COLOR: Matches Romance Pink */
+.add-btn-submit {
+    width: 100%;
+    background-color: #f472b6; /* Romance Pink */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-btn-submit:hover {
+    background-color: #db2777; /* Darker Pink hover */
+}
+
+/* Responsive */
+@media (max-width: 992px) { .genre-page-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .genre-page-grid { grid-template-columns: 1fr; } }
