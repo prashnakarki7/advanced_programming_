@@ -9,76 +9,79 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/manageuser")
+@WebServlet("/manageuser")
 public class ManageUserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Handles displaying the user list.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1. Security Check: Ensure only Admins can view this page
         if (!SessionUtil.isAdminLoggedIn(request)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
-        UserDAO DAO = new UserDAO();
+        UserDAO dao = new UserDAO();
         try {
-            List<UserModel> users = DAO.getAllUsers();
-            request.setAttribute("users", users);
-            request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp").forward(request, response);
+            // 2. Fetch all users from the database
+            // Note: Your UserDAO now automatically assigns "admin" or "user" roles based on logic
+            List<UserModel> users = dao.getAllUsers();
+            request.setAttribute("userList", users);
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle error gracefully, perhaps redirect to an error page
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database retrieval error.");
+            request.setAttribute("error", "Could not load user list from database.");
         }
+
+        // 3. Forward to the JSP page located in the protected WEB-INF folder
+        request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp").forward(request, response);
     }
 
+    /**
+     * Handles CRUD actions like Delete.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // 1. Security Check: Ensure only Admins can perform actions
         if (!SessionUtil.isAdminLoggedIn(request)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         String action = request.getParameter("action");
-        int userId;
+        String userIdStr = request.getParameter("userId");
 
-        try {
-            userId = Integer.parseInt(request.getParameter("userId"));
-        } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/admin/manageuser");
-            return;
-        }
+        if (userIdStr != null && !userIdStr.isEmpty()) {
+            try {
+                int userId = Integer.parseInt(userIdStr);
+                UserDAO dao = new UserDAO();
 
-        UserDAO dao = new UserDAO();
+                // 2. Routing logic for CRUD actions
+                if ("delete".equals(action)) {
+                    dao.deleteUser(userId); // Executes the SQL DELETE command
+                }
+                
+                // You can add more cases here for "update" or "block" in the future
 
-        try {
-            switch (action != null ? action : "") {
-                case "approve":
-                    dao.updateStatus(userId, "approved");
-                    break;
-                case "block":
-                    dao.updateStatus(userId, "blocked");
-                    break;
-                case "delete":
-                    dao.deleteUser(userId);
-                    break;
-                default:
-                    break;
+            } catch (Exception e) {
+                // Catches database exceptions and number format errors
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Log error or set error attribute
         }
 
-        // FIXED: Added missing '/admin' context directory to the redirect path
-        response.sendRedirect(request.getContextPath() + "/admin/manageuser");
+        // 3. Post-Redirect-Get Pattern: Redirect back to the GET mapping to refresh the list
+        // This prevents re-submitting the delete request if the user refreshes their browser.
+        response.sendRedirect(request.getContextPath() + "/manageuser"); 
     }
 }

@@ -1,5 +1,8 @@
 package com.advance_programming.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * OrderModel - POJO representing a placed order in Nepal Reads.
  */
@@ -12,7 +15,20 @@ public class OrderModel {
     private String status;        // "pending", "confirmed", "shipped", "delivered", "cancelled"
     private String shippingAddress;
     private String orderDate;
-    private String updatedAt;
+    
+    // Holds the item summaries belonging to this order container block
+    private List<OrderItemDetail> orderItems = new ArrayList<>();
+
+    // ── Inner Class for Order Item Summary Details ───────────────────────────
+    public static class OrderItemDetail {
+        private String bookTitle;
+        private int quantity;
+
+        public String getBookTitle() { return bookTitle; }
+        public void setBookTitle(String bookTitle) { this.bookTitle = bookTitle; }
+        public int getQuantity() { return quantity; }
+        public void setQuantity(int quantity) { this.quantity = quantity; }
+    }
 
     // ── Constructors ────────────────────────────────────────────────────────
 
@@ -53,6 +69,6 @@ public class OrderModel {
     public String getOrderDate()                     { return orderDate; }
     public void setOrderDate(String orderDate)       { this.orderDate = orderDate; }
 
-    public String getUpdatedAt()                     { return updatedAt; }
-    public void setUpdatedAt(String updatedAt)       { this.updatedAt = updatedAt; }
+    public List<OrderItemDetail> getOrderItems() { return orderItems; }
+    public void setOrderItems(List<OrderItemDetail> orderItems) { this.orderItems = orderItems; }
 }

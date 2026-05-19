@@ -13,6 +13,7 @@ public class UserModel {
     private String number;
     private int program; 
     private String password;
+    private String role;
 
    
     public int getUserId() { return userId; }
@@ -44,4 +45,7 @@ public class UserModel {
         
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 }

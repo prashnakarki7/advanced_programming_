@@ -15,7 +15,8 @@ public class OrderDAO {
 
     /**
      * Creates a new order record and its line items atomically.
-     * * @param userId          the ordering user's ID
+     *
+     * @param userId          the ordering user's ID
      * @param cart            map of bookId → quantity (from session)
      * @param shippingAddress delivery address entered at checkout
      * @return the generated order ID, or -1 on failure
@@ -36,7 +37,6 @@ public class OrderDAO {
 
         Connection conn = null;
         try {
-            // This now handles ClassNotFoundException via the catch(Exception e) below
             conn = DBconfig.getConnection();
             conn.setAutoCommit(false);  // begin transaction
 
@@ -89,7 +89,7 @@ public class OrderDAO {
             conn.commit();
             return orderId;
 
-        } catch (Exception e) { // catches both SQLException and ClassNotFoundException
+        } catch (Exception e) {
             e.printStackTrace();
             if (conn != null) {
                 try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
@@ -98,12 +98,8 @@ public class OrderDAO {
 
         } finally {
             if (conn != null) {
-                try { 
-                    conn.setAutoCommit(true); 
-                    conn.close(); 
-                } catch (SQLException e) { 
-                    e.printStackTrace(); 
-                }
+                try { conn.setAutoCommit(true); conn.close(); }
+                catch (SQLException e) { e.printStackTrace(); }
             }
         }
     }
@@ -113,11 +109,10 @@ public class OrderDAO {
      */
     public List<OrderModel> getOrdersByUser(int userId) {
         List<OrderModel> list = new ArrayList<>();
-        String sql = "SELECT o.*, u.username AS user_name "
+        String sql = "SELECT o.*, u.full_name AS user_name "
                    + "FROM orders o JOIN users u ON o.user_id = u.user_id "
                    + "WHERE o.user_id = ? ORDER BY o.order_date DESC";
 
-        // Updated to catch Exception to resolve the ClassNotFoundException error
         try (Connection conn = DBconfig.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -137,7 +132,7 @@ public class OrderDAO {
                 list.add(o);
             }
 
-        } catch (Exception e) { // Fix: Handles both SQL and Driver errors
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;

@@ -23,6 +23,13 @@
     <div class="form-card centered">
         <h2>Create Your Account</h2>
         <p class="subtitle">Enter your details to get started</p>
+        
+        <%-- ADD THIS RIGHT ABOVE THE <form> TAG --%>
+<c:if test="${not empty error}">
+    <div style="background:#fee2e2; border:1px solid #fca5a5; color:#dc2626; padding:12px; border-radius:8px; margin-bottom:20px; font-size:0.9rem; font-weight:600;">
+        <i class="fa fa-exclamation-circle"></i> ${error}
+    </div>
+</c:if>
 
         <form action="${pageContext.request.contextPath}/register" method="post">
             
