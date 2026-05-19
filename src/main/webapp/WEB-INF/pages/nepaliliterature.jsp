@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,101 +8,60 @@
     <title>Nepali Literature | Nepal Reads</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/nepaliliterature.css">
 </head>
 <body>
-    <jsp:include page="header.jsp" /> 
+    <jsp:include page="header.jsp" />
 
     <main class="genre-container">
-        <h2 class="genre-title">Nepali Literature Collection</h2>
-        
-        <div class="genre-page-grid">
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali1.jpg" alt="Muna Madan">
-                </div>
-                <div class="card-info">
-                    <p class="author">Laxmi Prasad Devkota</p>
-                    <h3>Muna Madan</h3>
-                    <span class="price">Rs. 450</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
+        <h2 class="genre-title"><i class="fas fa-om"></i> Nepali Literature Collection</h2>
 
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali2.jpg" alt="Palpasa Cafe">
+        <c:choose>
+            <c:when test="${empty books}">
+                <div style="text-align:center;padding:80px 20px;color:#6b7280">
+                    <i class="fas fa-book" style="font-size:3rem;display:block;margin-bottom:16px"></i>
+                    <p>No Nepali Literature books available yet. Check back soon!</p>
                 </div>
-                <div class="card-info">
-                    <p class="author">Narayan Wagle</p>
-                    <h3>Palpasa Cafe</h3>
-                    <span class="price">Rs. 650</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
+            </c:when>
+            <c:otherwise>
+                <div class="genre-page-grid">
+                    <c:forEach var="b" items="${books}">
+                    <div class="book-card">
+                        <div class="book-img-container">
+                            <c:choose>
+                                <c:when test="${not empty b.coverImage}">
+                                    <img src="${pageContext.request.contextPath}/${b.coverImage}" alt="${b.title}"
+                                         onerror="this.src='https://via.placeholder.com/200x300/16a34a/ffffff?text=${b.title}'">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="https://via.placeholder.com/200x300/16a34a/ffffff?text=${b.title}" alt="${b.title}">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="card-info">
+                            <p class="author">${b.author}</p>
+                            <h3>${b.title}</h3>
+                            <span class="price">Rs. ${b.price}</span>
+                            <form action="${pageContext.request.contextPath}/cart" method="post" class="add-cart-form">
+                                <input type="hidden" name="bookId" value="${b.bookId}">
+                                <input type="hidden" name="action" value="add">
+                                <c:choose>
+                                    <c:when test="${not empty sessionScope.user}">
+                                        <button type="submit" class="add-btn-submit">Add to Cart</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="button" class="add-btn-submit"
+                                            onclick="window.location='${pageContext.request.contextPath}/login'">Add to Cart</button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </form>
+                        </div>
+                    </div>
+                    </c:forEach>
                 </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali3.jpg" alt="Seto Dharti">
-                </div>
-                <div class="card-info">
-                    <p class="author">Amar Neupane</p>
-                    <h3>Seto Dharti</h3>
-                    <span class="price">Rs. 550</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali4.jpg" alt="Karnali Blues">
-                </div>
-                <div class="card-info">
-                    <p class="author">Buddhisagar</p>
-                    <h3>Karnali Blues</h3>
-                    <span class="price">Rs. 600</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali5.jpg" alt="Sumnima">
-                </div>
-                <div class="card-info">
-                    <p class="author">B.P. Koirala</p>
-                    <h3>Sumnima</h3>
-                    <span class="price">Rs. 400</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="book-card">
-                <div class="book-img-container">
-                    <img src="${pageContext.request.contextPath}/images/books/nepali6.jpg" alt="Sirish Ko Phool">
-                </div>
-                <div class="card-info">
-                    <p class="author">Parijat</p>
-                    <h3>Sirish Ko Phool</h3>
-                    <span class="price">Rs. 500</span>
-                    <form action="cart" method="post">
-                        <button type="submit" class="add-btn-submit">Add to Cart</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+            </c:otherwise>
+        </c:choose>
     </main>
 
     <jsp:include page="footer.jsp" />
