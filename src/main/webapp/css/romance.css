@@ -1,42 +1,54 @@
-/* ROMANCE PAGE SPECIFIC STYLES */
+/* ROMANCE PAGE UNIQUE STYLES - Matched Grid Width */
 
-body {
-    background-color: #f8f9fa; /* Soft pink background for the entire page */
+:root {
+    --bg-light: #fdfafb; 
 }
 
-/* The Layout: 3 books per row, 2 rows for 6 images */
-.genre-page-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 Equal Columns */
-    gap: 40px;
-    margin-top: 30px;
-    margin-bottom: 60px;
+html, body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #1f2937;
 }
 
-/* Page Theme */
-.romance-container {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+.genre-container {
+    /* Set to 1200px to match your other 3 genre pages */
+    max-width: 1200px; 
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* Custom Header for Romance */
-.romance-title {
+.genre-title {
     font-size: 2.2rem;
     font-weight: 800;
-    color: #f472b6; /* Deep Wine/Pink color */
-    border-left: 6px solid #f472b6;
-    padding-left: 15px;
-    margin-bottom: 30px;
+    color: #f472b6; 
+    border-left: 8px solid #f472b6; 
+    padding-left: 20px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
-/* Card Enhancements */
+/* THE GRID - Standardized Gap and Width */
+.genre-page-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    /* Gap set to 35px to match the 'spread' of your other genre pages */
+    gap: 35px; 
+    margin-bottom: 80px;
+}
+
+/* BOX COLOR & SHAPE */
 .book-card {
-    background-color: #ffffff; /* White cards to pop against the pink bg */
-    border: 1px solid #fce7f3;
-    border-radius: 12px;
+    background: #ffffff; 
+    border-radius: 15px;
+    border: 1px solid #fce7f3; 
     overflow: hidden;
-    transition: 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    /* Removed max-width here so it fills the 1fr column width like the others */
+    width: 100%; 
 }
 
 .book-card:hover {
@@ -46,45 +58,64 @@ body {
 }
 
 .book-img-container {
-    height: 350px;
-    background: #fff1f2;
+    height: 320px;
+    background: #fff1f2; 
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 15px;
+    align-items: center;
+    padding: 20px;
 }
 
 .book-img-container img {
-    max-width: 100%;
     max-height: 100%;
+    max-width: 100%;
     object-fit: contain;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Pink Buttons */
-.add-btn-submit {
+.card-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info h3 {
+    color: #1f2937;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    min-height: 2.4em; 
+}
+
+.price {
     display: block;
+    font-weight: 700;
+    color: #db2777;
+    margin-bottom: 15px;
+}
+
+/* BUTTON: Standard Romance Pink */
+.add-btn-submit {
     width: 100%;
-    background: #f472b6; /* Romance Pink */
+    background-color: #f472b6;
     color: white;
     border: none;
     padding: 12px;
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
-    transition: 0.3s ease;
+    margin-top: auto; 
+    transition: background 0.3s ease;
 }
 
 .add-btn-submit:hover {
-    background: #db2777; /* Darker Pink on hover */
-    box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4);
+    background-color: #db2777;
 }
 
-/* Responsive: 2 per row on tablets, 1 on phones */
-@media (max-width: 992px) {
-    .genre-page-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+/* Responsive Logic */
+@media (max-width: 992px) { 
+    .genre-page-grid { grid-template-columns: repeat(2, 1fr); } 
 }
 
-@media (max-width: 600px) {
-    .genre-page-grid { grid-template-columns: 1fr; }
+@media (max-width: 600px) { 
+    .genre-page-grid { grid-template-columns: 1fr; } 
 }

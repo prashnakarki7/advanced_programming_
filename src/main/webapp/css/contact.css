@@ -1,3 +1,7 @@
+/* ==========================================================================
+   CONTACT PAGE STYLES - NEPAL READS
+   ========================================================================== */
+
 /* --- Variables --- */
 :root {
     --bg-page: #f8f9fa;      /* Off-white background */
@@ -25,6 +29,7 @@
     font-weight: 800;
     margin-bottom: 20px;
     letter-spacing: -1.5px;
+    color: var(--text-main);
 }
 
 .contact-details p {
@@ -43,6 +48,7 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #f3f4f6;
 }
 
 .icon-box {
@@ -57,10 +63,19 @@
     font-size: 1.3rem;
 }
 
-.method-text h4 { margin: 0; font-size: 1rem; }
-.method-text span { font-size: 0.9rem; color: var(--text-muted); }
+.method-text h4 { 
+    margin: 0 0 4px 0; 
+    font-size: 1rem; 
+    color: var(--text-main);
+    font-weight: 700;
+}
 
-/* --- Contact Form --- */
+.method-text span { 
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+}
+
+/* --- Contact Form Card --- */
 .contact-card {
     background: var(--white);
     padding: 40px;
@@ -69,15 +84,49 @@
     border: 1px solid rgba(0,0,0,0.02);
 }
 
+/* --- Server-Side Message Alerts --- */
+.alert-box {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    line-height: 1.4;
+}
+
+.alert-box i {
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+.alert-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.alert-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+/* --- Form Elements Grid --- */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-.full-width { grid-column: span 2; }
+.full-width { 
+    grid-column: span 2; 
+}
 
-.input-group { margin-bottom: 20px; }
+.input-group { 
+    margin-bottom: 5px; 
+}
 
 .input-group label {
     display: block;
@@ -94,32 +143,47 @@
     border: 2px solid #f3f4f6;
     border-radius: 10px;
     background: #f9fafb;
-    font-family: inherit;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-main);
     transition: all 0.3s ease;
     outline: none;
+    box-sizing: border-box;
 }
 
-/* Pink Focus State */
+.input-group textarea {
+    resize: vertical;
+}
+
+/* Pink Focus State Configuration */
 .input-group input:focus, 
 .input-group textarea:focus {
     border-color: var(--pink-accent);
-    background: #fff;
+    background: var(--white);
     box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.1);
 }
 
+/* Input placeholders color styling */
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #9ca3af;
+}
+
+/* --- Submission Action Button --- */
 .submit-btn {
     width: 100%;
     background: var(--pink-accent);
-    color: white;
+    color: var(--white);
     border: none;
     padding: 16px;
     border-radius: 10px;
     font-weight: 800;
     font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     margin-top: 10px;
 }
 
@@ -129,9 +193,27 @@
     box-shadow: 0 10px 20px rgba(219, 39, 119, 0.2);
 }
 
-/* Responsive */
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* --- Responsive Viewport Queries --- */
 @media (max-width: 900px) {
-    .contact-wrapper { grid-template-columns: 1fr; gap: 40px; margin: 40px auto; }
-    .form-grid { grid-template-columns: 1fr; }
-    .full-width { grid-column: span 1; }
+    .contact-wrapper { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        margin: 40px auto; 
+    }
+    .form-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .full-width { 
+        grid-column: span 1; 
+    }
+    .contact-details h1 {
+        font-size: 2.3rem;
+    }
+    .contact-card {
+        padding: 30px 20px;
+    }
 }

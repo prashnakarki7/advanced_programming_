@@ -1,8 +1,6 @@
 package com.advance_programming.model;
 
-/**
- * AdminModel - POJO representing an administrator account for Nepal Reads.
- */
+
 public class AdminModel {
 
     private int adminId;
@@ -13,8 +11,7 @@ public class AdminModel {
     private String profileImage;
     private String createdAt;
 
-    // ── Constructors ────────────────────────────────────────────────────────
-
+  
     public AdminModel() {}
 
     public AdminModel(int adminId, String fullName, String email,

@@ -13,12 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * ManageOrderServlet - Admin page to view and update order status.
- *
- * GET  /manageorder                → list all orders (with status filtering)
- * POST /manageorder?action=updateStatus → change status of an order
- */
+
 @WebServlet("/manageorder")
 public class ManageOrderServlet extends HttpServlet {
 
@@ -37,24 +32,24 @@ public class ManageOrderServlet extends HttpServlet {
         List<OrderModel> allOrders = dao.getAllOrders();
         List<OrderModel> filteredOrders = new ArrayList<>();
 
-        // Capture filter parameter from the drop-down selector selection
+      
         String statusFilter = request.getParameter("status");
         if (statusFilter == null || statusFilter.trim().isEmpty()) {
             statusFilter = "all";
         }
 
-        // Handle filtering robustly here in the controller layer to protect the view layer
+      
         for (OrderModel order : allOrders) {
             String currentStatus = (order.getStatus() != null) ? order.getStatus().trim() : "pending";
             
             if ("all".equalsIgnoreCase(statusFilter) || currentStatus.equalsIgnoreCase(statusFilter)) {
-                // Ensure a safe fallback string if database records have any whitespace/null variants
+    
                 order.setStatus(currentStatus); 
                 filteredOrders.add(order);
             }
         }
 
-        // Send filtered array list and the active selector tag over to the page matching context
+      
         request.setAttribute("orders", filteredOrders);
         request.setAttribute("currentFilter", statusFilter.toLowerCase());
         

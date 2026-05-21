@@ -1,4 +1,4 @@
-/* HORROR PAGE UNIQUE STYLES - Matched to Romance Boxes/Buttons */
+/* HORROR PAGE UNIQUE STYLES - PINK ROMANCE THEME ACCENTS */
 
 :root {
     --bg-light: #fdfafb; 
@@ -8,20 +8,20 @@ html, body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
-    color: #1f2937; /* Darker text for better contrast on light bg */
+    color: #1f2937;
 }
 
-.horror-container {
+.genre-container {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-.horror-title {
+.genre-title {
     font-size: 2.2rem;
     font-weight: 800;
-    color: #f472b6; /* Keeping Title Red to identify the genre */
-    border-left: 8px solid #f472b6; /* Pink border to match Romance theme */
+    color: #db2777; /* Romance Deep Pink */
+    border-left: 8px solid #f472b6; /* Soft Pink Border Accents */
     padding-left: 20px;
     margin-bottom: 40px;
     text-transform: uppercase;
@@ -35,7 +35,7 @@ html, body {
     margin-bottom: 80px;
 }
 
-/* UPDATED BOX COLOR: Matches Romance (White with Pink Border) */
+/* BOX CONFIGURATION: White Container with Pink Tint Boarders */
 .book-card {
     background: #ffffff; 
     border-radius: 15px;
@@ -53,7 +53,7 @@ html, body {
 
 .book-img-container {
     height: 320px;
-    background: #fff1f2; /* Light Pink image container like Romance */
+    background: #fff1f2; /* Light Canvas Pink Backdrop */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,21 +71,21 @@ html, body {
 }
 
 .card-info h3 {
-    color: #1f2937; /* Dark text like Romance */
+    color: #1f2937;
     margin-bottom: 10px;
 }
 
 .price {
     display: block;
     font-weight: 700;
-    color: #db2777; /* Pink price tag */
+    color: #db2777; /* Hot Pink Price Numbers */
     margin-bottom: 15px;
 }
 
-/* UPDATED BUTTON COLOR: Matches Romance Pink */
+/* SUBMIT CTA ACTION BUTTONS: Romance Theme Base Color Pink */
 .add-btn-submit {
     width: 100%;
-    background-color: #f472b6; /* Romance Pink */
+    background-color: #f472b6; 
     color: white;
     border: none;
     padding: 12px;
@@ -96,9 +96,9 @@ html, body {
 }
 
 .add-btn-submit:hover {
-    background-color: #db2777; /* Darker Pink hover */
+    background-color: #db2777; /* Deep Passion Pink Hover */
 }
 
-/* Responsive */
+/* Responsive grid view adjustments */
 @media (max-width: 992px) { .genre-page-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .genre-page-grid { grid-template-columns: 1fr; } }

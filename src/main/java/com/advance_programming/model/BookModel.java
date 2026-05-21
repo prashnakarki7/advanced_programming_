@@ -1,8 +1,6 @@
 package com.advance_programming.model;
 
-/**
- * BookModel - POJO representing a book in the Nepal Reads catalogue.
- */
+
 public class BookModel {
 
     private int bookId;
@@ -17,7 +15,7 @@ public class BookModel {
     private String publishedDate;
     private String createdAt;
 
-    // ── Constructors ────────────────────────────────────────────────────────
+   
 
     public BookModel() {}
 

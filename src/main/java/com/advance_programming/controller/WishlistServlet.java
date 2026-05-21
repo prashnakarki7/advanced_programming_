@@ -15,16 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * WishlistServlet – Manages the session-based wishlist for Nepal Reads.
- *
- * GET  /wishlist              → display wishlist page
- * POST /wishlist?action=add   → add a bookId to the wishlist
- * POST /wishlist?action=remove → remove a bookId from the wishlist
- *
- * BUG FIX: redirect to /login?next=/wishlist so the user returns here after
- *          login instead of landing on /home.
- */
+
 @WebServlet("/wishlist")
 public class WishlistServlet extends HttpServlet {
 
@@ -69,7 +60,7 @@ public class WishlistServlet extends HttpServlet {
             throws ServletException, IOException {
 
         if (!SessionUtil.isUserLoggedIn(request)) {
-            // BUG FIX: preserve destination so user returns after login
+            
             String next = URLEncoder.encode("/wishlist", StandardCharsets.UTF_8);
             response.sendRedirect(request.getContextPath() + "/login?next=" + next);
             return;

@@ -17,16 +17,15 @@ public class AboutusServlet extends HttpServlet {
 
     /**
      * Logic: Handles the navigation to the About Us page.
-     * This is where you would fetch team data if it were stored in a database.
+     * This is where we would fetch team data if it were stored in a database.
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // For now, we simply forward to the JSP.
-        // If team data becomes dynamic, fetch it here and use request.setAttribute("team", list);
+    
         request.getRequestDispatcher("/WEB-INF/pages/aboutus.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Typically not used for an About Us page unless there is a 'Contact Us' form.
+        
         doGet(request, response);
     }
 }

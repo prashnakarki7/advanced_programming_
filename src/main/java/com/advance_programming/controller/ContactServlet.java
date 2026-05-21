@@ -9,58 +9,80 @@ import java.io.IOException;
 public class ContactServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ContactServlet() {
-        super();
-    }
-
-    /**
-     * Handles displaying the Contact Form
-     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StringBuilder htmlBuilder = new StringBuilder();
-
-        htmlBuilder.append("<div class='contact-container' style='padding: 20px; max-width: 500px; margin: auto;'>");
-        htmlBuilder.append("  <h2>Contact Us</h2>");
-        htmlBuilder.append("  <form action='contact' method='post'>");
-        htmlBuilder.append("    <div style='margin-bottom: 10px;'>");
-        htmlBuilder.append("      <label>Name:</label><br>");
-        htmlBuilder.append("      <input type='text' name='userName' style='width: 100%;' required>");
-        htmlBuilder.append("    </div>");
-        htmlBuilder.append("    <div style='margin-bottom: 10px;'>");
-        htmlBuilder.append("      <label>Email:</label><br>");
-        htmlBuilder.append("      <input type='email' name='userEmail' style='width: 100%;' required>");
-        htmlBuilder.append("    </div>");
-        htmlBuilder.append("    <div style='margin-bottom: 10px;'>");
-        htmlBuilder.append("      <label>Message:</label><br>");
-        htmlBuilder.append("      <textarea name='userMessage' rows='5' style='width: 100%;' required></textarea>");
-        htmlBuilder.append("    </div>");
-        htmlBuilder.append("    <button type='submit' style='background: #34495e; color: white; border: none; padding: 10px 20px; cursor: pointer;'>Send Message</button>");
-        htmlBuilder.append("  </form>");
-        htmlBuilder.append("</div>");
-
-        request.setAttribute("contactHtml", htmlBuilder.toString());
         request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the form submission
-     */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Capture the data from the form
+       
         String name = request.getParameter("userName");
         String email = request.getParameter("userEmail");
+        String subject = request.getParameter("userSubject");
         String message = request.getParameter("userMessage");
 
-        // 2. Process the data (In a real app, you'd send an email or save to a DB)
-        System.out.println("Contact Form Submission:");
-        System.out.println("From: " + name + " (" + email + ")");
-        System.out.println("Message: " + message);
-
-        // 3. Set a success message to display on the page
-        String successHtml = "<div style='color: green; text-align: center;'><h3>Thank you, " + name + "! Your message has been sent.</h3></div>";
-        request.setAttribute("contactHtml", successHtml);
         
-        // Forward back to contact.jsp to show the success message
+        request.setAttribute("typedName", name);
+        request.setAttribute("typedEmail", email);
+        request.setAttribute("typedSubject", subject);
+        request.setAttribute("typedMessage", message);
+
+        // 3. Server-Side Data Validation
+        if (name == null || name.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Name field cannot be left blank.");
+            request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
+            return;
+        }
+
+        if (email == null || email.trim().isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            request.setAttribute("errorMessage", "Please provide a valid email address.");
+            request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
+            return;
+        }
+
+        if (subject == null || subject.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Please provide a subject title line.");
+            request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
+            return;
+        }
+
+        if (message == null || message.trim().isEmpty() || message.trim().length() < 10) {
+            request.setAttribute("errorMessage", "Your message body text must be at least 10 characters long.");
+            request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
+            return;
+        }
+
+        
+        name = sanitizeInput(name);
+        email = sanitizeInput(email);
+        subject = sanitizeInput(subject);
+        message = sanitizeInput(message);
+
+        
+        System.out.println("Processing Secure Contact Form Submission:");
+        System.out.println("Sender: " + name + " (" + email + ")");
+        System.out.println("Subject: " + subject);
+        System.out.println("Message Content: " + message);
+
+        // 6. Execution Success Workflow
+        request.setAttribute("successMessage", "Thank you, " + name + "! Your message has been sent successfully.");
+        
+        
+        request.removeAttribute("typedName");
+        request.removeAttribute("typedEmail");
+        request.removeAttribute("typedSubject");
+        request.removeAttribute("typedMessage");
+
         request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
     }
-} 
+
+    private String sanitizeInput(String input) {
+        if (input == null) return "";
+        return input.replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll("\"", "&quot;")
+                    .replaceAll("'", "&#x27;");
+    }
+}

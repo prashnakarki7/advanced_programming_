@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +15,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css">
     
-    
-    
+    <style>
+        /* This hides the error box entirely when not needed */
+        .error-message {
+            display: ${empty error ? 'none' : 'block'};
+            background-color: #fff8f8; 
+            border-left: 5px solid #dc2626; 
+            color: #b91c1c; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,12 +36,9 @@
         <h2>Create Your Account</h2>
         <p class="subtitle">Enter your details to get started</p>
         
-        <%-- ADD THIS RIGHT ABOVE THE <form> TAG --%>
-<c:if test="${not empty error}">
-    <div style="background:#fee2e2; border:1px solid #fca5a5; color:#dc2626; padding:12px; border-radius:8px; margin-bottom:20px; font-size:0.9rem; font-weight:600;">
-        <i class="fa fa-exclamation-circle"></i> ${error}
-    </div>
-</c:if>
+        <div class="error-message">
+            <strong>Registration Issue:</strong> ${error}
+        </div>
 
         <form action="${pageContext.request.contextPath}/register" method="post">
             
@@ -38,14 +47,14 @@
                     <label>First Name</label>
                     <div class="input-wrap">
                         <i class="fa fa-user"></i>
-                        <input type="text" name="first_name" placeholder="simon" required>
+                        <input type="text" name="first_name" value="${firstName}" placeholder="simon" required>
                     </div>
                 </div>
                 <div class="field">
                     <label>Last Name</label>
                     <div class="input-wrap">
                         <i class="fa fa-user"></i>
-                        <input type="text" name="last_name" placeholder="karki" required>
+                        <input type="text" name="last_name" value="${lastName}" placeholder="karki" required>
                     </div>
                 </div>
             </div>
@@ -55,17 +64,16 @@
                     <label>Username</label>
                     <div class="input-wrap">
                         <i class="fa fa-user-circle"></i>
-                        <input type="text" name="username" placeholder="simonkarki" required>
+                        <input type="text" name="username" value="${username}" placeholder="simonkarki" required>
                     </div>
                 </div>
                 <div class="field">
                     <label>Phone Number</label>
                     <div class="input-wrap">
                         <i class="fa fa-phone"></i>
-                        <input type="tel" name="number" placeholder="+977..." required>
+                        <input type="tel" name="number" value="${number}" placeholder="+977..." required>
                     </div>
                 </div>
-                
             </div>
 
             <div class="row">
@@ -79,12 +87,12 @@
                 <div class="field">
                     <label>Gender</label>
                     <div class="input-wrap">
-    					<select name="gender" required>
-        					<option value="" disabled selected hidden>Select</option>
-       					 	<option>Male</option>
-        					<option>Female</option>
-    					</select>
-					</div>
+                        <select name="gender" required>
+                            <option value="" disabled selected hidden>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -93,10 +101,9 @@
                     <label>Email</label>
                     <div class="input-wrap">
                         <i class="fa fa-envelope"></i>
-                        <input type="email" name="email" placeholder="name@example.com" required>
+                        <input type="email" name="email" value="${email}" placeholder="name@example.com" required>
                     </div>
                 </div>
-                
             </div>
 
             <div class="field">

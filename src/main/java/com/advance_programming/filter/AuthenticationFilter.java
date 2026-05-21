@@ -9,21 +9,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-/**
- * AuthenticationFilter – Intercepts requests to user-protected pages and
- * redirects unauthenticated visitors to /login, preserving the originally
- * requested URL in the "next" query parameter so the user is returned there
- * after a successful login.
- *
- * PUBLIC  (no login needed): /home, /login, /register, /search, /booklisting,
- *                             /categories, /aboutus, /contact, static assets
- *
- * PROTECTED (login required): /profile, /cart, /checkout, /order, /wishlist
- *
- * NOTE: Only @WebFilter annotation is used here.
- *       All <filter>/<filter-mapping> blocks for AuthenticationFilter have been
- *       removed from web.xml to avoid duplicate registrations.
- */
+
 @WebFilter(
     filterName = "AuthenticationFilter",
     urlPatterns = {
@@ -38,7 +24,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Nothing to initialise
+        
     }
 
     @Override

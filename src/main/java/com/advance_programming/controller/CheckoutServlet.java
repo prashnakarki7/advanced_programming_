@@ -84,7 +84,7 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
-        // Invoke your atomic database submission processor
+        // Invoke atomic database submission processor
         OrderDAO orderDao = new OrderDAO();
         int generatedOrderId = orderDao.placeOrder(user.getUserId(), cart, addr);
 
@@ -93,7 +93,7 @@ public class CheckoutServlet extends HttpServlet {
             SessionUtil.removeAttribute(request, "cart");
             response.sendRedirect(request.getContextPath() + "/order?success=" + generatedOrderId);
         } else {
-            // FIXED: Set descriptive error context and reload current page parameters cleanly
+            
             request.setAttribute("error", "Database Transaction Failed! Please verify that the items in your cart are in stock in your 'books' table.");
             
             // Re-fetch cart items manually so the view doesn't render empty on fallback

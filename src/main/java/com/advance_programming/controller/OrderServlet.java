@@ -13,12 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * OrderServlet - Shows a logged-in user their order history.
- *
- * GET /order           → list all orders for the current user
- * GET /order?success=N → same but shows a success banner for order #N
- */
+
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
 

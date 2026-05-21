@@ -10,7 +10,7 @@ public class ProductModel {
     private String imagePath;
     private String description;
 
-    // Constructors
+  
     public ProductModel() {}
 
     // Getters and Setters

@@ -9,7 +9,7 @@ public class LoginService {
 	
     public String authenticate(String username, String password) {
     	
-    	// Basic input fields validation
+   
     	if (username == null || username.trim().isEmpty()) {
             return "Username is required";
         }
@@ -17,7 +17,6 @@ public class LoginService {
             return "Password is required";
         }
         
-        // Actual logic to fetch student data and do validation
         try {
             // Fetch the student by username from DAO
             UserModel user = userDAO.getUserByUsername(username);

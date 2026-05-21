@@ -36,10 +36,10 @@ public class CartServlet extends HttpServlet {
         List<ProductModel> cartBooks = new ArrayList<>();
         if (cart != null && !cart.isEmpty()) {
             try {
-                // Instantiating your existing product data access object
+              
                 ProductDAO dao = new ProductDAO();
                 
-                // CRITICAL FIXED LINE: Calls getAllProducts() matching your current file layout
+            
                 List<ProductModel> allProductsList = dao.getAllProducts();
                 
                 for (Map.Entry<String, Integer> entry : cart.entrySet()) {

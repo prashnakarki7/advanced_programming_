@@ -3,9 +3,7 @@ package com.advance_programming.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * OrderModel - POJO representing a placed order in Nepal Reads.
- */
+
 public class OrderModel {
 
     private int orderId;
@@ -19,7 +17,7 @@ public class OrderModel {
     // Holds the item summaries belonging to this order container block
     private List<OrderItemDetail> orderItems = new ArrayList<>();
 
-    // ── Inner Class for Order Item Summary Details ───────────────────────────
+ 
     public static class OrderItemDetail {
         private String bookTitle;
         private int quantity;
@@ -30,7 +28,7 @@ public class OrderModel {
         public void setQuantity(int quantity) { this.quantity = quantity; }
     }
 
-    // ── Constructors ────────────────────────────────────────────────────────
+
 
     public OrderModel() {}
 

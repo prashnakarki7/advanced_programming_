@@ -1,12 +1,10 @@
 package com.advance_programming.controller;
 
-import com.advance_programming.DAO.AdminDAO;
-import com.advance_programming.model.BookModel;
+import com.advance_programming.DAO.ProductDAO;
+import com.advance_programming.model.ProductModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,15 +12,16 @@ import java.util.List;
 public class RomanceServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        AdminDAO dao = new AdminDAO();
-        List<BookModel> books = dao.getBooksByGenre("Romance");
-        request.setAttribute("books", books);
-        request.setAttribute("genre", "Romance");
-        request.getRequestDispatcher("/WEB-INF/pages/romance.jsp").forward(request, response);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // Must perfectly match the value string in your SQL database seed block: 'Romance'
+            List<ProductModel> books = new ProductDAO().getProductsByGenre("Romance");
+            request.setAttribute("genreBooks", books);
+            request.getRequestDispatcher("/WEB-INF/pages/romance.jsp").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/home");
+        }
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException { doGet(request, response); }
 }

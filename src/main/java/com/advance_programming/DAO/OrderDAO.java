@@ -8,19 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * OrderDAO - Handles placing new orders and reading order history for a user.
- */
+
 public class OrderDAO {
 
-    /**
-     * Creates a new order record and its line items atomically.
-     *
-     * @param userId          the ordering user's ID
-     * @param cart            map of bookId → quantity (from session)
-     * @param shippingAddress delivery address entered at checkout
-     * @return the generated order ID, or -1 on failure
-     */
+ 
     public int placeOrder(int userId, Map<String, Integer> cart, String shippingAddress) {
         if (cart == null || cart.isEmpty()) {
             return -1;
@@ -104,9 +95,7 @@ public class OrderDAO {
         }
     }
 
-    /**
-     * Returns all orders placed by a specific user, newest first.
-     */
+
     public List<OrderModel> getOrdersByUser(int userId) {
         List<OrderModel> list = new ArrayList<>();
         String sql = "SELECT o.*, u.full_name AS user_name "
@@ -138,8 +127,7 @@ public class OrderDAO {
         return list;
     }
 
-    // ── Private helpers ───────────────────────────────────────────────────────
-
+   
     private double getBookPrice(Connection conn, int bookId) throws SQLException {
         PreparedStatement ps = conn.prepareStatement("SELECT price FROM books WHERE book_id = ?");
         ps.setInt(1, bookId);

@@ -9,15 +9,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * AdminDAO - Data Access Object for admin-specific operations:
- * admin login lookups, full book CRUD, and order management.
- */
+
 public class AdminDAO {
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // ADMIN ACCOUNT
-    // ══════════════════════════════════════════════════════════════════════════
 
     public AdminModel getAdminByEmail(String email) {
         String sql = "SELECT * FROM admins WHERE email = ?";
@@ -47,9 +41,6 @@ public class AdminDAO {
         return null;
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // BOOK CRUD
-    // ══════════════════════════════════════════════════════════════════════════
 
     public boolean addBook(BookModel book) {
         String sql = "INSERT INTO books "
@@ -221,17 +212,10 @@ public class AdminDAO {
         }
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // ORDER MANAGEMENT (Fixed and Safety-Routed)
-    // ══════════════════════════════════════════════════════════════════════════
 
-    /**
-     * Returns all orders across all users, joined with user names and dynamic line products.
-     */
     public List<OrderModel> getAllOrders() {
         List<OrderModel> orders = new ArrayList<>();
         
-        // FIXED: Uses LEFT JOIN so if full_name or user mapping breaks, the order data STILL loads!
         String sql = "SELECT o.*, u.full_name AS user_name "
                    + "FROM orders o "
                    + "LEFT JOIN users u ON o.user_id = u.user_id "
@@ -292,8 +276,7 @@ public class AdminDAO {
         }
     }
 
-    // ── Private helpers ───────────────────────────────────────────────────────
-
+   
     private BookModel mapBook(ResultSet rs) throws SQLException {
         return new BookModel(
             rs.getInt("book_id"),

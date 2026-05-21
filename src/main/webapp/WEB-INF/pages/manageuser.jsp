@@ -25,7 +25,7 @@
             <a href="${pageContext.request.contextPath}/manageuser" class="nav-item"><i class="fas fa-users"></i> USERS</a>
             <a href="${pageContext.request.contextPath}/manageproduct"  class="nav-item"><i class="fas fa-box"></i> Products</a>
             <a href="${pageContext.request.contextPath}/manageorder" class="nav-item"><i class="fas fa-box"></i> Orders</a>
-            <a href="${pageContext.request.contextPath}/profile" class="nav-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
+            <a href="${pageContext.request.contextPath}/adminprofile" class="nav-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
             <a href="${pageContext.request.contextPath}/logout" class="nav-item logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </nav>
             

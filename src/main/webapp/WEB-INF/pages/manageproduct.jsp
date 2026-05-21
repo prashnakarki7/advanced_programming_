@@ -19,7 +19,7 @@
             <a href="${pageContext.request.contextPath}/manageuser" class="nav-item"><i class="fas fa-users"></i> Users</a>
             <a href="${pageContext.request.contextPath}/manageproduct" class="nav-item active"><i class="fas fa-book"></i> Products</a>
             <a href="${pageContext.request.contextPath}/manageorder" class="nav-item"><i class="fas fa-shopping-cart"></i> Orders</a>
-            <a href="${pageContext.request.contextPath}/profile" class="nav-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
+            <a href="${pageContext.request.contextPath}/adminprofile" class="nav-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
             <a href="${pageContext.request.contextPath}/logout" class="nav-item logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </nav>
         <div class="listing-container">
@@ -33,22 +33,57 @@
                 </a>
             </div>
 
+            <!-- ========================================== -->
+            <!-- NOTIFICATION/ALERT BANNERS                 -->
+            <!-- ========================================== -->
+            
+            <%-- URL Parameter: Book added successfully --%>
             <c:if test="${not empty param.success}">
                 <div style="background:#dcfce7;border:1px solid #86efac;color:#16a34a;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
                     <i class="fas fa-check-circle"></i> Book added successfully!
                 </div>
             </c:if>
+            
+            <%-- URL Parameter: Book action cancelled by user --%>
+            <c:if test="${not empty param.cancelled}">
+                <div style="background:#e0f2fe;border:1px solid #bae6fd;color:#0369a1;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
+                    <i class="fas fa-info-circle"></i> Operation cancelled. No changes were made.
+                </div>
+            </c:if>
+            
+            <%-- URL Parameter or Session: Book deleted successfully --%>
             <c:if test="${not empty param.deleted}">
                 <div style="background:#dcfce7;border:1px solid #86efac;color:#16a34a;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
                     <i class="fas fa-check-circle"></i> Book deleted successfully!
                 </div>
             </c:if>
+
+            <%-- Session Attribute: Book properties altered / deleted via SessionUtil --%>
+            <c:if test="${not empty sessionScope.message}">
+                <div style="background:#dcfce7;border:1px solid #86efac;color:#16a34a;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
+                    <i class="fas fa-check-circle"></i> ${sessionScope.message}
+                </div>
+                <c:remove var="message" scope="session" />
+            </c:if>
+            
+            <%-- Request Attribute Error --%>
             <c:if test="${not empty error}">
                 <div style="background:#fee2e2;border:1px solid #fca5a5;color:#dc2626;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
                     <i class="fas fa-exclamation-circle"></i> ${error}
                 </div>
             </c:if>
 
+            <%-- Session Attribute Error --%>
+            <c:if test="${not empty sessionScope.error}">
+                <div style="background:#fee2e2;border:1px solid #fca5a5;color:#dc2626;padding:12px 20px;border-radius:8px;margin-bottom:20px;">
+                    <i class="fas fa-exclamation-circle"></i> ${sessionScope.error}
+                </div>
+                <c:remove var="error" scope="session" />
+            </c:if>
+
+            <!-- ========================================== -->
+            <!-- INVENTORY TABLE AREA                       -->
+            <!-- ========================================== -->
             <main class="inventory-area">
                 <table class="inventory-table">
                     <thead>
@@ -104,9 +139,11 @@
                                             <div class="action-btns">
                                                 <a href="${pageContext.request.contextPath}/editProduct?id=${product.productId}"
                                                    class="btn-edit" title="Edit Book"><i class="fas fa-edit"></i></a>
+                                                
+                                                <!-- Dynamic confirmation dialog via JavaScript inside onsubmit -->
                                                 <form action="${pageContext.request.contextPath}/manageproduct" method="post"
                                                       style="display:inline;"
-                                                      onsubmit="return confirm('Are you sure you want to delete this book?')">
+                                                      onsubmit="return confirm('Are you sure you want to permanently delete \'${product.productName}\'?')">
                                                     <input type="hidden" name="action" value="delete">
                                                     <input type="hidden" name="productId" value="${product.productId}">
                                                     <button type="submit" class="btn-delete" title="Delete Book">

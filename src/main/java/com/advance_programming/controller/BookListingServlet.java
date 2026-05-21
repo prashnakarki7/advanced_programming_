@@ -11,12 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * BookListingServlet - Displays the full catalogue with an optional genre filter.
- *
- * GET /booklisting           → show all books
- * GET /booklisting?genre=X   → show books filtered by genre
- */
+
 @WebServlet("/booklisting")
 public class BookListingServlet extends HttpServlet {
 

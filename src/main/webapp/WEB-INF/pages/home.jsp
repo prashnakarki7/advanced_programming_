@@ -39,6 +39,36 @@
                     </div>
                 </div>
             </div>
+            <div class="slide">
+                <img src="${pageContext.request.contextPath}/images/books/photo 1.jpeg" class="slide-img" alt="Banner 3">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <span class="hero-badge">Nepali Literature</span>
+                        <h2>Voices From The <br>Himalayas</h2>
+                        <a href="${pageContext.request.contextPath}/nepaliliterature" class="hero-btn">Browse Collection</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="${pageContext.request.contextPath}/images/books/photo 2.jpeg" class="slide-img" alt="Banner 4">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <span class="hero-badge">Thrills & Suspense</span>
+                        <h2>Chilling Tales <br>For Late Nights</h2>
+                        <a href="${pageContext.request.contextPath}/horror" class="hero-btn">Enter If You Dare</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide">
+                <img src="${pageContext.request.contextPath}/images/books/photo 3.jpeg" class="slide-img" alt="Banner 5">
+                <div class="hero-overlay">
+                    <div class="hero-content">
+                        <span class="hero-badge">Laugh Out Loud</span>
+                        <h2>Stories To Brighten <br>Your Day</h2>
+                        <a href="${pageContext.request.contextPath}/comedy" class="hero-btn">Explore Comedy</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -125,20 +155,6 @@
 </main>
 
 <jsp:include page="footer.jsp" />
-
-<script>
-// Simple slider
-let current = 0;
-const slides = document.querySelectorAll('.slide');
-function showSlide(n) {
-    slides.forEach(s => s.style.display = 'none');
-    if (slides[n]) slides[n].style.display = 'block';
-}
-if (slides.length > 0) {
-    showSlide(0);
-    setInterval(() => { current = (current + 1) % slides.length; showSlide(current); }, 4000);
-}
-</script>
 
 </body>
 </html>

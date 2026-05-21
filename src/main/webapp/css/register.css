@@ -162,3 +162,22 @@ form {
         padding: 2rem 1.5rem;
     }
 }
+
+/* This hides the error container if it is empty */
+.error-message:empty {
+    display: none;
+}
+
+/* This styles the error container when it has text */
+.error-message:not(:empty) {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #dc2626;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    z-index: 9999;
+    font-weight: bold;
+}

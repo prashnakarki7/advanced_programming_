@@ -2,26 +2,22 @@ package com.advance_programming.DAO;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import com.advance_programming.model.UserModel;
 import com.advance_programming.utils.DBconfig;
+import java.util.List;
+import java.util.ArrayList;
 
 public class UserDAO {
 
-    /**
-     * INSERT: Adds a new user to the database.
-     * This must match the 8 parameters called by RegisterService.
-     */
     public boolean insertUser(String firstName, String lastName, String username, String dob,
                               String gender, String email, String number, String password) throws Exception {
 
-        // Convert String date from form to SQL Date
-        LocalDate localDate = LocalDate.parse(dob); 
-        Date sqlDate = Date.valueOf(localDate);
+        // Safety check for nulls
+        if (dob == null || dob.isEmpty()) {
+            throw new Exception("Date of birth is missing.");
+        }
 
-        String sql = "INSERT INTO users (first_name, last_name, username, dob, gender, email, number, password) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (first_name, last_name, username, dob, gender, email, number, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection con = DBconfig.getConnection();
              PreparedStatement pst = con.prepareStatement(sql)) {
@@ -29,19 +25,21 @@ public class UserDAO {
             pst.setString(1, firstName);
             pst.setString(2, lastName);
             pst.setString(3, username);
-            pst.setDate(4, sqlDate);
+            pst.setDate(4, Date.valueOf(LocalDate.parse(dob)));
             pst.setString(5, gender);
             pst.setString(6, email);
             pst.setString(7, number);
             pst.setString(8, password);
 
             return pst.executeUpdate() > 0;
+        } catch (SQLException e) {
+            // This prints the actual SQL error (like 'Duplicate entry') to your IDE console
+            System.err.println("Database error during insertUser: " + e.getMessage());
+            throw e; 
         }
     }
 
-    /**
-     * READ: Fetches a single user by username and assigns a logical role.
-     */
+ 
     public UserModel getUserByUsername(String username) throws Exception {
         UserModel user = null;
         String sql = "SELECT * FROM users WHERE username = ?";
@@ -75,9 +73,7 @@ public class UserDAO {
         return user;
     }
 
-    /**
-     * READ: Fetches all users for the Management Dashboard.
-     */
+
     public List<UserModel> getAllUsers() throws Exception {
         List<UserModel> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
@@ -109,9 +105,7 @@ public class UserDAO {
         return users;
     }
 
-    /**
-     * DELETE: Removes a user by ID.
-     */
+
     public boolean deleteUser(int userId) throws Exception {
         String sql = "DELETE FROM users WHERE user_id = ?";
         

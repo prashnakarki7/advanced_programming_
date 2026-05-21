@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/profile")
-@MultipartConfig // CRITICAL: Required because your form uses enctype="multipart/form-data"
+@MultipartConfig 
 public class ProfileServlet extends HttpServlet {
 
     @Override
@@ -43,8 +43,7 @@ public class ProfileServlet extends HttpServlet {
         }
 
         try {
-            // 1. MATCHING PARAMETERS: Use the exact 'name' attributes from your JSP
-            // If your JSP has name="firstName", your Servlet must use "firstName"
+  
             currentUser.setFirstName(request.getParameter("firstName"));
             currentUser.setLastName(request.getParameter("lastName"));
             currentUser.setEmail(request.getParameter("email"));
@@ -56,12 +55,12 @@ public class ProfileServlet extends HttpServlet {
                 currentUser.setDob(java.sql.Date.valueOf(dobStr));
             }
 
-            // 2. DATABASE UPDATE
+         
             UserDAO dao = new UserDAO();
             boolean success = dao.updateUserProfile(currentUser);
             
             if (success) {
-                // 3. SESSION SYNC: Overwrite the session object so headers/pages update immediately
+               
                 SessionUtil.setAttribute(request, "user", currentUser);
                 response.sendRedirect(request.getContextPath() + "/profile?success=1");
             } else {

@@ -12,12 +12,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * SearchServlet - Handles keyword searches across title, author, and ISBN.
- *
- * GET  /search?q=keyword → return matching books
- * POST /search            → same (form may use POST)
- */
+
 @WebServlet("/search")
 public class SearchServlet extends HttpServlet {
 

@@ -18,9 +18,7 @@ public class ManageUserServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Handles displaying the user list.
-     */
+  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,8 +31,7 @@ public class ManageUserServlet extends HttpServlet {
 
         UserDAO dao = new UserDAO();
         try {
-            // 2. Fetch all users from the database
-            // Note: Your UserDAO now automatically assigns "admin" or "user" roles based on logic
+      
             List<UserModel> users = dao.getAllUsers();
             request.setAttribute("userList", users);
         } catch (Exception e) {
@@ -46,9 +43,7 @@ public class ManageUserServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp").forward(request, response);
     }
 
-    /**
-     * Handles CRUD actions like Delete.
-     */
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,7 +67,7 @@ public class ManageUserServlet extends HttpServlet {
                     dao.deleteUser(userId); // Executes the SQL DELETE command
                 }
                 
-                // You can add more cases here for "update" or "block" in the future
+                
 
             } catch (Exception e) {
                 // Catches database exceptions and number format errors
@@ -80,8 +75,7 @@ public class ManageUserServlet extends HttpServlet {
             }
         }
 
-        // 3. Post-Redirect-Get Pattern: Redirect back to the GET mapping to refresh the list
-        // This prevents re-submitting the delete request if the user refreshes their browser.
+
         response.sendRedirect(request.getContextPath() + "/manageuser"); 
     }
 }

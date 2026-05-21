@@ -12,7 +12,8 @@ import jakarta.servlet.http.*;
 
 @WebServlet("/manageproduct")
 @MultipartConfig
-public class ManageProductServlet extends HttpServlet {
+public class manageProductServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,17 +40,26 @@ public class ManageProductServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
+        
         String action = request.getParameter("action");
         try {
             ProductDAO dao = new ProductDAO();
             if ("delete".equals(action)) {
                 int productId = Integer.parseInt(request.getParameter("productId"));
-                dao.deleteProduct(productId);
-                response.sendRedirect(request.getContextPath() + "/manageproduct?deleted=true");
+                
+                // Execute deletion check matching database interaction standard
+                if (dao.deleteProduct(productId)) {
+                    SessionUtil.setAttribute(request, "message", "Book properties successfully removed from inventory!", 60);
+                } else {
+                    SessionUtil.setAttribute(request, "error", "Could not complete database deletion sequence.", 60);
+                }
+                
+                response.sendRedirect(request.getContextPath() + "/manageproduct");
                 return;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            SessionUtil.setAttribute(request, "error", "System Exception Error during deletion: " + e.getMessage(), 60);
         }
         response.sendRedirect(request.getContextPath() + "/manageproduct");
     }
